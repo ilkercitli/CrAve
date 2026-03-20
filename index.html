@@ -71,6 +71,12 @@ input:focus{border-color:#555}
 .section-divider{height:1px;background:#eee;margin:20px 0}
 .status-msg{font-size:12px;color:#065f46;text-align:right;margin-top:6px;height:16px;font-weight:500}
 footer{text-align:center;padding:32px 24px;font-size:12px;color:#aaa;border-top:1px solid #eee;margin-top:32px}
+.cite-box{background:#f0f7ff;border:1px solid #bfdbfe;border-radius:10px;padding:14px 18px;margin:24px 0 0;text-align:left}
+.cite-box-title{font-size:12px;font-weight:700;color:#1e40af;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em}
+.cite-box-text{font-size:12px;color:#1e3a8a;line-height:1.7}
+.cite-banner{background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:flex-start;gap:10px}
+.cite-banner-icon{font-size:15px;flex-shrink:0;margin-top:1px}
+.cite-banner-text{font-size:12px;color:#92400e;line-height:1.6}
 @media(max-width:600px){.summary-grid{grid-template-columns:1fr 1fr}.ind-row{gap:6px}.corr-lbl{min-width:140px;font-size:11px}}
 </style>
 </head>
@@ -167,7 +173,14 @@ footer{text-align:center;padding:32px 24px;font-size:12px;color:#aaa;border-top:
   </div>
 </div>
 
-<footer>CFA Validity Report Generator &nbsp;·&nbsp; Free academic tool &nbsp;·&nbsp; AVE · CR · α · HTMT · Fornell-Larcker</footer>
+<div class="container" style="padding-top:0">
+  <div class="cite-box">
+    <div class="cite-box-title">How to cite CrAve</div>
+    <div class="cite-box-text">Çitli, İ. İlker (2025). <em>CrAve: A free browser-based tool for CFA validity reporting</em> [Web application]. Retrieved from https://ilkercitli.github.io/CrAve</div>
+    <div style="margin-top:8px;font-size:11px;color:#3b82f6">CrAve is free. Citing it in your work helps support its development.</div>
+  </div>
+</div>
+<footer>CrAve &nbsp;·&nbsp; CR · AVE · α — Validity reporting for behavioral researchers &nbsp;·&nbsp; Free academic tool</footer>
 
 <script>
 let CS=[];let CV={};
@@ -400,7 +413,12 @@ function buildTable(R){
       <tfoot><tr class="note-row"><td colspan="5">Note. HTMT = heterotrait-monotrait ratio of correlations, approximated as r / √(AVE₁ × AVE₂). Values below .85 indicate discriminant validity (Henseler et al., 2015); values below .90 indicate acceptable discriminant validity (Gold et al., 2001). Green = passes criterion; red = fails criterion.</td></tr></tfoot>
     </table></div>`;
   }
-  wrap.innerHTML=h;
+  const banner=`<div class="cite-banner">
+    <div class="cite-banner-icon">&#9432;</div>
+    <div class="cite-banner-text"><strong>If you use these results in a publication, please cite CrAve:</strong><br>
+    Çitli, İ. İlker (2025). <em>CrAve: A free browser-based tool for CFA validity reporting</em> [Web application]. Retrieved from https://ilkercitli.github.io/CrAve</div>
+  </div>`;
+  wrap.innerHTML=banner+h;
 }
 function buildReport(R){
   const wrap=document.getElementById('rep-content');
@@ -445,7 +463,12 @@ function buildReport(R){
     }
   }
   txt+=`REFERENCES\n\nFornell, C., & Larcker, D. F. (1981). Evaluating structural equation models with unobservable variables and measurement error. Journal of Marketing Research, 18(1), 39–50. https://doi.org/10.1177/002224378101800104\n\nGold, A. H., Malhotra, A., & Segars, A. H. (2001). Knowledge management: An organizational capabilities perspective. Journal of Management Information Systems, 18(1), 185–214. https://doi.org/10.1080/07421222.2001.11045669\n\nHair, J. F., Risher, J. J., Sarstedt, M., & Ringle, C. M. (2019). When to use and how to report results of PLS-SEM. European Business Review, 31(1), 2–24. https://doi.org/10.1108/EBR-11-2018-0203\n\nHenseler, J., Ringle, C. M., & Sarstedt, M. (2015). A new criterion for assessing discriminant validity in variance-based structural equation modeling. Journal of the Academy of Marketing Science, 43(1), 115–135. https://doi.org/10.1007/s11747-014-0403-8\n\nNunnally, J. C. (1978). Psychometric theory (2nd ed.). McGraw-Hill.`;
-  wrap.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+  txt+=`\nTOOL CITATION\n\nValidity indices were computed using CrAve (Çitli, 2025).\n\nÇitli, İ. İlker (2025). CrAve: A free browser-based tool for CFA validity reporting [Web application]. Retrieved from https://ilkercitli.github.io/CrAve`;
+  const repBanner=`<div class="cite-banner" style="margin-bottom:12px">
+    <div class="cite-banner-icon">&#9432;</div>
+    <div class="cite-banner-text"><strong>Please cite CrAve in your publication.</strong> The citation is included at the end of the report text below — do not remove it.</div>
+  </div>`;
+  wrap.innerHTML=`${repBanner}<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
     <span style="font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.05em">Methods + Results text (APA)</span>
     <button class="btn-copy" onclick="copyBoxText('rep-box')">Copy all</button>
   </div>
